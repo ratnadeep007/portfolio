@@ -1,19 +1,22 @@
 <template>
   <div id="app">
     <Jumbo />
-    <info />
+    <Info />
+    <LongInfo />
   </div>
 </template>
 
 <script>
 import Jumbo from './components/Jumbo.vue'
 import Info from './components/Info.vue';
+import LongInfo from './components/LongInfo.vue';
 
 export default {
   name: 'app',
   components: {
     Jumbo,
-    Info
+    Info,
+    LongInfo
   }
 }
 </script>
