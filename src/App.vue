@@ -8,13 +8,11 @@
     >
       <router-view></router-view>
     </transition>
-    <Footer />
   </div>
 </template>
 
 <script>
-import NavTop from './components/NavTop.vue';
-import Footer from './components/Footer.vue';
+import NavTop from '@/components/NavTop.vue';
 
 export default {
   name: 'app',
@@ -23,7 +21,6 @@ export default {
     // Jumbo,
     // Info,
     // LongInfo,
-    Footer
   }
 }
 </script>
