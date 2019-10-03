@@ -1,17 +1,18 @@
 <template>
   <div id="app" class="bg-white">
     <NavTop />
-    <Jumbo class="mt-6" />
-    <Info />
-    <!-- <LongInfo /> -->
+    <transition 
+      name="router-anim"
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
+      <router-view></router-view>
+    </transition>
     <Footer />
   </div>
 </template>
 
 <script>
-import Jumbo from './components/Jumbo.vue'
-import Info from './components/Info.vue';
-// import LongInfo from './components/LongInfo.vue';
 import NavTop from './components/NavTop.vue';
 import Footer from './components/Footer.vue';
 
@@ -19,8 +20,8 @@ export default {
   name: 'app',
   components: {
     NavTop,
-    Jumbo,
-    Info,
+    // Jumbo,
+    // Info,
     // LongInfo,
     Footer
   }
