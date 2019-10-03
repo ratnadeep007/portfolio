@@ -1,33 +1,75 @@
 <template>
-  <div class="container mx-auto my-6">
-    <div class="text-base px-3 sm:font-lg md:text-xl lg:text-xl xl:text-xl font-semibold text-justify">
-      <h3 class="text-xl">Skill set:</h3>
-      <ul class="list-disc sm:list-disc md:list-disc lg:list-disc xl:list-disc px-2">
-        <li class="text-gray-900 text-sm lg:text-lg md:text-lg xl:text-lg hover:text-gray-600">
-          <a href="" class="">Fullstack Developer</a>
-        </li>
-        <li class="text-gray-900 text-sm lg:text-lg md:text-lg xl:text-lg hover:text-gray-600">
-          <a href="">Polyglot Programmer</a>
-        </li>
-        <li class="text-gray-900 text-sm lg:text-lg md:text-lg xl:text-lg hover:text-gray-600">
-          <a href="">Hands on experience with multiple tech stacks</a>
-        </li>
-        <li class="text-gray-900 text-sm lg:text-lg md:text-lg xl:text-lg hover:text-gray-600">
-          <a href="">Graphic Designer</a>
-        </li>
-        <!-- <li class="text-sm lg:text-base md:text-base xl:text-base"></li> -->
-        <!-- <li class="text-sm lg:text-base md:text-base xl:text-base"></li> -->
-      </ul>
-      <!-- A fullstack developer currently working in Javascript stack, polyglot programmer in C, C++, Python, Golang and Javascript. Hands on experience 
-      in working with different tech stack like Node.js (Express, Nest, Koa, Hapi), Django (with Django Rest Framework), STL in C++, Golang (Gorilla, Beego, Revel, Gin)
-      in backend, Angular, React, Vue, Web Components (Stencil, Polymer, LitElement) with PWAs in web frontend and Android SDK, React Native, Nativescript and Flutter in
-      mobile frontend. -->
+  <div class="container mx-auto mt-3 pt-3 pb-3">
+    <div class="flex flex-row justify-between">
+      <div class="w-1/2">
+        <div class="flex flex-col justify-center items-center">
+          <div class="shadow border border-gray-300 px-4 py-2 bg-white rounded hover:shadow-lg w-1/2">
+            <div class="flex flex-col py-2 px-4">
+              <div class="text-xl font-bold text-center mb-3">Frontend</div>
+              <img class="h-24" src="../assets/svg/frontend.svg" />
+              <div class="mt-3 text-base text-justify">Building beautiful frontend with wide variety of technology availible</div>
+            </div>
+          </div>
+          <div class="shadow border border-gray-300 px-4 py-2 bg-white rounded hover:shadow-lg w-1/2 mt-3">
+            <div class="flex flex-col py-2 px-4">
+              <div class="text-xl font-bold text-center mb-3">Machine Learning</div>
+              <img class="h-24" src="../assets/svg/machine-learning.svg" />
+              <div class="mt-3 text-base text-justify">Teaching computers to think and take decisions based on situations</div>
+            </div>
+          </div>
+          <div class="shadow border border-gray-300 px-4 py-2 bg-white rounded hover:shadow-lg w-1/2 mt-3">
+            <div class="flex flex-col py-2 px-4">
+              <div class="text-xl font-bold text-center mb-3">Mobile Apps</div>
+              <img class="h-24" src="../assets/svg/apps.svg" />
+              <div class="mt-3 text-base text-justify">Building mobile apps haven't been easier with burst with different technologies</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2">
+        <div class="flex flex-col justify-center items-center">
+          <div class="shadow border border-gray-300 px-4 py-2 bg-white rounded hover:shadow-lg w-1/2">
+            <div class="flex flex-col py-2 px-4">
+              <div class="text-xl font-bold text-center mb-3">Backend</div>
+              <img class="h-24" src="../assets/svg/backend.svg" />
+              <div class="mt-3 text-base text-justify">Building robust and optimised APIs for frontend easy to consume.</div>
+            </div>
+          </div>
+          <div class="shadow border border-gray-300 px-4 py-2 bg-white rounded hover:shadow-lg w-1/2 mt-3">
+            <div class="flex flex-col py-2 px-4">
+              <div class="text-xl font-bold text-center mb-3">Other Languages</div>
+              <img class="h-24" src="../assets/svg/languages.svg" />
+              <div class="mt-3 text-base text-justify">Other programming languages or frameworks I like to work upon</div>
+            </div>
+          </div>
+          <div class="shadow border border-gray-300 px-4 py-2 bg-white rounded hover:shadow-lg w-1/2 mt-3">
+            <div class="flex flex-col py-2 px-4">
+              <div class="text-xl font-bold text-center mb-3">Cloud Computing</div>
+              <img class="h-24" src="../assets/svg/cloud.svg" />
+              <div class="mt-3 text-base text-justify">Cloud Computing stuffs I like to work upon basically PaaS like Heroku, IaaS like AWS, GCP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-row justify-center">
+      <div class="shadow border border-gray-300 px-4 py-2 bg-white rounded hover:shadow-lg w-1/4 mt-3">
+        <div class="flex flex-col py-2 px-4">
+          <div class="text-xl font-bold text-center mb-3">Future</div>
+          <img class="h-24" src="../assets/svg/future.svg" />
+          <div class="mt-3 text-base text-justify">Upcoming technologies I closely follow and experiment with</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'info'
+  name: 'Info'
 }
 </script>
+
+<style>
+
+</style>

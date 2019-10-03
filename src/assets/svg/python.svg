@@ -1,0 +1,28 @@
+<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient11301">
+   <stop stop-color="#ffe052" offset="0" id="stop11303"/>
+   <stop stop-color="#ffc331" offset="1" id="stop11305"/>
+  </linearGradient>
+  <linearGradient xlink:href="#linearGradient11301" id="linearGradient11307" x1="0.191275" y1="0.203158" x2="0.907415" y2="0.88773"/>
+  <linearGradient id="linearGradient9515">
+   <stop stop-color="#387eb8" offset="0" id="stop9517"/>
+   <stop stop-color="#366994" offset="1" id="stop9519"/>
+  </linearGradient>
+  <linearGradient xlink:href="#linearGradient9515" id="linearGradient9521" x1="0.129594" y1="0.116996" x2="0.796388" y2="0.784533"/>
+ </defs>
+ <metadata id="metadata2174">image/svg+xml</metadata>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="252" width="252" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="layer1">
+   <g stroke="null" id="g1894">
+    <path fill="url(#linearGradient9521)" fill-rule="nonzero" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dashoffset="0" id="path8615" d="m124.552955,29c-46.309805,0.000003 -43.417922,20.082725 -43.417922,20.082725l0.051627,20.805497l44.19232,0l0,6.246812l-61.745345,0c0,0 -29.633635,-3.360724 -29.633635,43.366295c-0.000003,46.72701 25.864898,45.069971 25.864898,45.069971l15.436336,0l0,-21.683148c0,0 -0.832058,-25.864898 25.451885,-25.864898c26.28394,0 43.830934,0 43.830934,0c0,0 24.625861,0.398078 24.625861,-23.799836c0,-24.197907 0,-40.01057 0,-40.01057c0,-0.000003 3.738885,-24.212848 -44.656959,-24.212848zm-24.367728,13.990793c4.396812,-0.000003 7.950488,3.553675 7.950488,7.950488c0.000003,4.396812 -3.553675,7.950488 -7.950488,7.950488c-4.396812,0.000003 -7.950488,-3.553675 -7.950488,-7.950488c-0.000003,-4.396812 3.553675,-7.950488 7.950488,-7.950488z"/>
+    <path fill="url(#linearGradient11307)" fill-rule="nonzero" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dashoffset="0" d="m125.868152,210.471178c46.309818,0 43.417922,-20.082725 43.417922,-20.082725l-0.051627,-20.805497l-44.19232,0l0,-6.246812l61.745345,0c0,0 29.633635,3.360714 29.633635,-43.366312c0.000017,-46.727005 -25.864898,-45.069966 -25.864898,-45.069966l-15.436336,0l0,21.683143c0,0 0.832071,25.864898 -25.451885,25.864898c-26.283943,0 -43.830938,0 -43.830938,0c0,0 -24.625861,-0.398078 -24.625861,23.799852c0,24.197897 0,40.01057 0,40.01057c0,0 -3.738885,24.212848 44.656962,24.212848zm24.367728,-13.990793c-4.396814,0 -7.950488,-3.553674 -7.950488,-7.950488c0,-4.396814 3.553674,-7.950488 7.950488,-7.950488c4.396814,0 7.950488,3.553674 7.950488,7.950488c0.000017,4.396814 -3.553674,7.950488 -7.950488,7.950488z" id="path8620"/>
+   </g>
+  </g>
+ </g>
+</svg>

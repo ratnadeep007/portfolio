@@ -1,0 +1,18 @@
+<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="252" width="252" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1" transform="matrix(1.186734316440728,0,0,-1.186734316440728,-68.44341185296688,281.1282982799201) ">
+   <g id="svg_2">
+    <path id="svg_3" fill="#41b883" d="m185.144484,213.392525l-22.669,-39.264l-22.669,39.264l-75.491,0l98.16,-170.02l98.16,170.02l-75.491,0z"/>
+   </g>
+   <g id="svg_4">
+    <path id="svg_5" fill="#34495e" d="m185.144484,213.392525l-22.669,-39.264l-22.669,39.264l-36.227,0l58.896,-102.01l58.896,102.01l-36.227,0z"/>
+   </g>
+  </g>
+ </g>
+</svg>
