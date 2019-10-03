@@ -1,8 +1,8 @@
 <template>
   <footer class="bg-gray-800 bottom-0">
     <div class="container mx-auto text-white pt-3 pb-3">
-      <div class="flex flex-row justify-between">
-        <div class="w-1/2">
+      <div class="flex flex-col sm:flex-row justify-between ml-3 sm:ml-0">
+        <div class="sm:w-1/2">
           <div class="flex flex-col justify-center">
             <div class="text-2xl font-bold mb-3">Contact</div>
             <div class="flex flex-row mb-3">
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="w-1/2">
+        <div class="sm:w-1/2">
           <div class="flex flex-col justify-center">
             <div class="text-2xl font-bold mb-3">Links</div>
             <div class="text-lg">About</div>
@@ -40,7 +40,7 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col justify-center items-center">
+      <div class="flex flex-col items-start ml-3 sm:ml-0 sm:justify-center sm:items-center mt-3">
         <div>&copy; All logos are copyrights to there respective owners</div>
         <div>&copy; SVGs are from <a href="undraw.io">undraw.io</a></div>
         <div>&copy; 2019 Webpage by Ratnadeep Bhattacharyya</div>
