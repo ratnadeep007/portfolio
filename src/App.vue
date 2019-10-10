@@ -13,8 +13,10 @@
 </template>
 
 <script>
-import NavTop from '@/components/NavTop.vue';
-import Footer from '@/components/Footer.vue';
+// import NavTop from '@/components/NavTop.vue';
+// import Footer from '@/components/Footer.vue';
+const NavTop = () => import('@/components/NavTop.vue');
+const Footer = () => import('@/components/Footer.vue');
 
 export default {
   name: 'app',

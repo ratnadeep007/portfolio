@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { db } from '../firebase';
+import {db} from '@/firebase';
 
 export default {
   name: 'Contact',
@@ -61,7 +61,6 @@ export default {
         this.error = true;
         return;
       }
-      console.log(this.validateEmail(this.email));
       if (!this.validateEmail(this.email)) {
         this.errorText = 'Please enter a valid email address. (Click to dismiss this error)';
         this.error = true;
@@ -78,6 +77,9 @@ export default {
         this.submitted = true;
         // eslint-disable-next-line
         console.log(res);
+        setTimeout(() => {
+          this.$router.push('/');
+        }, 5000)
       } catch(err) {
         // eslint-disable-next-line
         console.log(err);

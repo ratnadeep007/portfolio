@@ -1,7 +1,8 @@
-import { initializeApp } from 'firebase';
+import firebase from 'firebase';
+import 'firebase/firestore';
 import f from './config';
 
-const app = initializeApp({
+const app = firebase.initializeApp({
   apiKey: f.firebase.apiKey,
   authDomain: f.firebase.authDomain,
   databaseURL: f.firebase.databaseURL,
