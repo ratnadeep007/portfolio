@@ -10,6 +10,7 @@ import Other from '@/pages/Other.vue';
 import MobileApps from '@/pages/MobileApps.vue';
 import Future from '@/pages/Future.vue';
 import OtherPlatforms from '@/pages/OtherPlatforms.vue';
+import Work from '@/pages/Work.vue';
 
 Vue.use(VueRouter);
 
@@ -53,11 +54,16 @@ const routes = [
   {
     path: '/skills/otherplatform',
     component: OtherPlatforms
+  },
+  {
+    path: '/work',
+    component: Work
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 });
 
 export default router;

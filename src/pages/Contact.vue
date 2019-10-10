@@ -34,17 +34,13 @@
         <div class="mx-3">Thank your for contacting. You will be redirected to home page in 5 seconds if not <router-link to="/" class="text-blue-800 underline">click here</router-link>.</div>
       </div>
     </transition>
-    <Footer class="sm:absolute sm:inset-x-0 sm:bottom-0" />
+    <!-- <Footer class="sm:absolute sm:inset-x-0 sm:bottom-0" /> -->
   </div>
 </template>
 
 <script>
-import Footer from '@/components/Footer.vue';
 export default {
   name: 'Contact',
-  components: {
-    Footer
-  },
   data: function() {
     return {
       submitted: false,

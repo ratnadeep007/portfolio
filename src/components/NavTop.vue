@@ -10,15 +10,15 @@
         </router-link>
         <div class="flex w-3/4 flex flex-row justify-end">
           <div class="hidden sm:px-3 sm:block sm:py-3">
-            <a href="#" class="text-gray-600 font-bold hover:text-gray-900">
+            <router-link to="/work" class="text-gray-600 font-bold hover:text-gray-900">
               Works
-            </a>
+            </router-link>
           </div>
-          <div class="hidden sm:px-3 sm:block sm:py-3">
+          <!-- <div class="hidden sm:px-3 sm:block sm:py-3">
             <a href="#" class="text-gray-600 font-bold hover:text-gray-900">
               Skills
             </a>
-          </div>
+          </div> -->
           <div class="hidden sm:px-3 sm:block sm:py-3">
             <router-link to="/contact" class="text-gray-600 font-bold hover:text-gray-900">
               Contact
@@ -39,12 +39,12 @@
       >
         <div v-if="navActive" class="bg-white mb-3 w-full animated" >
           <div class="flex flex-col justify-center rounded shadow shadow-lg w-full">
-            <a href="#" class="text-gray-800 ml-3 font-bold text-xl">
+            <router-link to="/work" class="text-gray-800 ml-3 font-bold text-xl">
               Works
-            </a>
-            <a href="#" class="text-gray-800 ml-3 font-bold text-xl">
+            </router-link>
+            <!-- <a href="#" class="text-gray-800 ml-3 font-bold text-xl">
               Skills
-            </a>
+            </a> -->
             <router-link to="/contact" class="text-gray-800 ml-3 font-bold text-xl">
               Contact
             </router-link>

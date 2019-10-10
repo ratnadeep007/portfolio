@@ -76,17 +76,12 @@
       </div>
       <!-- <SkillsCard class="mt-3" /> -->
     </div>
-    <Footer />
+    <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
-import Footer from '@/components/Footer.vue';
-
 export default {
   name: "Other",
-  components: {
-    Footer
-  }
 }
 </script>

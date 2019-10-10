@@ -63,17 +63,12 @@
       </div>
       <!-- <SkillsCard class="mt-3" /> -->
     </div>
-    <Footer class="sm:absolute sm:inset-x-0 sm:bottom-0" />
+    <!-- <Footer class="sm:absolute sm:inset-x-0 sm:bottom-0" /> -->
   </div>
 </template>
 
 <script>
-import Footer from '@/components/Footer.vue';
-
 export default {
   name: 'OtherPlatform',
-  components: {
-    Footer
-  }
 }
 </script>
