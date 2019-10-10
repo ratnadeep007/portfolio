@@ -56,18 +56,24 @@
               <div class="mt-3 text-base text-justify">Cloud Computing stuffs I like to work upon basically PaaS like Heroku, IaaS like AWS, GCP</div>
             </div>
           </router-link>
-          <router-link to="/skills/future" class="sm:shadow sm:border sm:border-gray-300 px-4 py-2 bg-white rounded sm:hover:shadow-lg sm:w-1/2 mt-3">
+          <router-link to="/skills/databases" class="sm:shadow sm:border sm:border-gray-300 px-4 py-2 bg-white rounded sm:hover:shadow-lg sm:w-1/2 mt-3">
             <div class="flex flex-col py-2 px-4">
-              <div class="text-xl font-bold text-center mb-3">Future</div>
-              <img class="h-24" src="../assets/svg/future.svg" />
-              <div class="mt-3 text-base text-justify">Upcoming technologies I closely follow and experiment with</div>
+              <div class="text-xl font-bold text-center mb-3">Databases</div>
+              <img class="h-24" src="../assets/svg/database.svg" />
+              <div class="mt-3 text-base text-justify">Be is SQL or NoSQL or cache or any other acquainted working with all of them</div>
             </div>
           </router-link>
         </div>
       </div>
     </div>
     <div class="flex flex-row justify-center">
-      
+      <router-link to="/skills/future" class="sm:shadow sm:border sm:border-gray-300 px-4 py-2 bg-white rounded sm:hover:shadow-lg sm:w-1/4 mt-3">
+        <div class="flex flex-col py-2 px-4">
+          <div class="text-xl font-bold text-center mb-3">Future</div>
+          <img class="h-24" src="../assets/svg/future.svg" />
+          <div class="mt-3 text-base text-justify">Upcoming technologies I closely follow and experiment with</div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>

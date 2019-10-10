@@ -11,6 +11,7 @@ import MobileApps from '@/pages/MobileApps.vue';
 import Future from '@/pages/Future.vue';
 import OtherPlatforms from '@/pages/OtherPlatforms.vue';
 import Work from '@/pages/Work.vue';
+import Databases from '@/pages/Databases.vue';
 
 Vue.use(VueRouter);
 
@@ -54,6 +55,10 @@ const routes = [
   {
     path: '/skills/otherplatform',
     component: OtherPlatforms
+  },
+  {
+    path: '/skills/databases',
+    component: Databases
   },
   {
     path: '/work',
