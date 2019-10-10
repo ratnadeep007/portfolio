@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto mb-3">
     <div v-if="error" class="bg-red-400 rounded px-4 py-2 text-white font-bold" @click="error = false">
-      Please put name and email both. (Click to dismiss this error)
+      {{ errorText }}
     </div>
     <div v-if="!submitted" class="flex flex-col items-center sm:hidden mb-3">
       <div class="text-gray-600">Please fill following:</div>
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { db } from '../firebase';
+
 export default {
   name: 'Contact',
   data: function() {
@@ -46,25 +48,45 @@ export default {
       submitted: false,
       loading: false,
       error: false,
+      errorText: '',
       name: '',
       email: '',
       message: ''
     }
   },
   methods: {
-    submit: function() {
+    submit: async function() {
       if (!this.name || !this.email) {
+        this.errorText = 'Please put name and email both. (Click to dismiss this error)';
+        this.error = true;
+        return;
+      }
+      console.log(this.validateEmail(this.email));
+      if (!this.validateEmail(this.email)) {
+        this.errorText = 'Please enter a valid email address. (Click to dismiss this error)';
         this.error = true;
         return;
       }
       this.loading = true;
-      setTimeout(() => {
+      try {
+        const res = await db.add({
+          name: this.name,
+          email: this.email,
+          message: this.message
+        });
         this.loading = false;
         this.submitted = true;
-      }, 5000)
-      setTimeout(() => {
-        this.$router.push('/');
-      }, 8000);
+        // eslint-disable-next-line
+        console.log(res);
+      } catch(err) {
+        // eslint-disable-next-line
+        console.log(err);
+      }
+    },
+    validateEmail: function (email) {
+        // eslint-disable-next-line
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     }
   }
 }
