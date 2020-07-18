@@ -9,9 +9,9 @@
           </span>
         </router-link>
         <div class="flex w-3/4 flex flex-row justify-end">
-          <div class="hidden sm:px-3 sm:block sm:py-3">
-            <router-link to="/work" class="text-gray-600 font-bold hover:text-gray-900">Works</router-link>
-          </div>
+          <!-- <div class="hidden sm:px-3 sm:block sm:py-3"> -->
+          <!-- <router-link to="/work" class="text-gray-600 font-bold hover:text-gray-900">Works</router-link> -->
+          <!-- </div> -->
           <!-- <div class="hidden sm:px-3 sm:block sm:py-3">
             <a href="#" class="text-gray-600 font-bold hover:text-gray-900">
               Skills
