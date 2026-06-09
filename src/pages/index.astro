@@ -136,7 +136,10 @@ const skills = [
     <main>
       <section class="hero" aria-labelledby="intro-title">
         <nav class="topbar" aria-label="Primary navigation">
-          <a class="brand" href="/">RB</a>
+          <a class="brand-lockup" href="/" aria-label="Ratnadeep Bhattacharyya home">
+            <span class="brand">RB</span>
+            <span class="brand-name">Ratnadeep Bhattacharyya</span>
+          </a>
           <div class="navlinks">
             <a href="#work">Work</a>
             <a href="#projects">Projects</a>
@@ -148,7 +151,7 @@ const skills = [
           <div class="hero-copy">
             <p class="eyebrow">Forward deployed engineer / AI systems / backend platforms</p>
             <h1 id="intro-title">
-              I build full-stack AI products from user-facing workflows to reliable backend platforms.
+              I build <em>full-stack AI products</em> from user-facing workflows to <em>reliable backend platforms</em>.
             </h1>
             <p class="lede">
               Software engineer with 7+ years across distributed systems, cloud-native backend
@@ -352,16 +355,31 @@ const skills = [
     padding: 14px 0;
   }
 
+  .brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    animation: fade-rise 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
   .brand {
     display: grid;
     place-items: center;
+    flex: 0 0 auto;
     width: 46px;
     height: 46px;
     border: 1px solid var(--ink);
     border-radius: 999px;
     font-weight: 800;
     letter-spacing: -0.04em;
-    animation: fade-rise 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .brand-name {
+    max-width: 170px;
+    font-size: 0.9rem;
+    font-weight: 850;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
   }
 
   .navlinks {
@@ -427,10 +445,19 @@ const skills = [
   h1 {
     max-width: 980px;
     margin-bottom: 28px;
+    font-family:
+      "SF Pro Display", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
     font-size: clamp(3.5rem, 7.2vw, 7rem);
-    line-height: 0.9;
-    letter-spacing: -0.07em;
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
     animation: fade-rise 760ms 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 520;
   }
 
   h2 {
@@ -784,17 +811,31 @@ const skills = [
     }
 
     .topbar {
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: stretch;
       gap: 18px;
     }
 
+    .brand-lockup {
+      width: fit-content;
+    }
+
+    .brand-name {
+      max-width: 120px;
+      font-size: 0.82rem;
+    }
+
     .navlinks {
-      max-width: calc(100vw - 98px);
-      overflow-x: auto;
+      width: 100%;
+      max-width: none;
+      overflow-x: visible;
+      justify-content: space-between;
     }
 
     .navlinks a {
+      flex: 1;
       padding-inline: 12px;
+      text-align: center;
     }
 
     .actions,
