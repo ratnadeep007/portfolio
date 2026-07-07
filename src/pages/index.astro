@@ -143,6 +143,7 @@ const skills = [
           <div class="navlinks">
             <a href="#work">Work</a>
             <a href="#projects">Projects</a>
+            <a href="https://github.com/ratnadeep007" target="_blank" rel="noreferrer">GitHub</a>
             <a href="#contact">Contact</a>
           </div>
         </nav>
@@ -268,26 +269,52 @@ const skills = [
       </section>
     </main>
     <script>
-      const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      import gsap from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-      if (!motionQuery.matches) {
-        const revealItems = document.querySelectorAll("[data-reveal]");
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.setAttribute("data-visible", "true");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { rootMargin: "0px 0px -12% 0px", threshold: 0.16 }
-        );
+      gsap.registerPlugin(ScrollTrigger);
 
-        revealItems.forEach((item, index) => {
-          if (!(item instanceof HTMLElement)) return;
-          item.style.setProperty("--reveal-delay", `${Math.min(index * 18, 90)}ms`);
-          observer.observe(item);
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const heroItems = [
+        ".brand-lockup",
+        ".navlinks",
+        ".hero-copy .eyebrow",
+        "#intro-title",
+        ".lede",
+        ".actions",
+        ".signal-card"
+      ];
+      const revealItems = gsap.utils.toArray<HTMLElement>("[data-reveal]");
+
+      if (reduceMotion) {
+        gsap.set([...heroItems, ...revealItems], { clearProps: "all", opacity: 1, y: 0 });
+      } else {
+        gsap.set(heroItems, { opacity: 0, y: 18 });
+        gsap.set(".signal-card", { opacity: 0, y: 20, scale: 0.985 });
+        gsap.set(revealItems, { opacity: 0, y: 14 });
+
+        gsap
+          .timeline({ defaults: { ease: "power3.out", duration: 0.72 } })
+          .to(".brand-lockup", { opacity: 1, y: 0 }, 0)
+          .to(".navlinks", { opacity: 1, y: 0 }, 0.08)
+          .to(".hero-copy .eyebrow", { opacity: 1, y: 0 }, 0.16)
+          .to("#intro-title", { opacity: 1, y: 0, duration: 0.86 }, 0.24)
+          .to(".lede", { opacity: 1, y: 0 }, 0.38)
+          .to(".actions", { opacity: 1, y: 0 }, 0.48)
+          .to(".signal-card", { opacity: 1, y: 0, scale: 1, duration: 0.78 }, 0.56);
+
+        revealItems.forEach((item) => {
+          gsap.to(item, {
+            opacity: 1,
+            y: 0,
+            duration: 0.58,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 86%",
+              once: true
+            }
+          });
         });
       }
     </script>
@@ -359,7 +386,6 @@ const skills = [
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    animation: fade-rise 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
   .brand {
@@ -390,7 +416,6 @@ const skills = [
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.68);
     backdrop-filter: blur(18px);
-    animation: fade-rise 620ms 90ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
   .navlinks a,
@@ -422,10 +447,6 @@ const skills = [
     align-items: center;
   }
 
-  .hero-copy .eyebrow {
-    animation: fade-rise 700ms 140ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-
   .eyebrow {
     margin: 0 0 18px;
     color: var(--accent);
@@ -452,7 +473,6 @@ const skills = [
     line-height: 0.98;
     letter-spacing: -0.055em;
     text-wrap: balance;
-    animation: fade-rise 760ms 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
   h1 em {
@@ -479,7 +499,6 @@ const skills = [
     color: var(--muted);
     font-size: clamp(1.08rem, 2vw, 1.4rem);
     line-height: 1.55;
-    animation: fade-rise 720ms 330ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
   .actions {
@@ -487,7 +506,6 @@ const skills = [
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 34px;
-    animation: fade-rise 720ms 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
   .button {
@@ -521,21 +539,6 @@ const skills = [
     box-shadow: var(--shadow);
     background: var(--line);
     transform: none;
-    animation: card-enter 760ms 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-
-  .js [data-reveal] {
-    opacity: 0;
-    transform: translateY(10px);
-    transition:
-      opacity 420ms ease,
-      transform 420ms ease;
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-
-  .js [data-reveal][data-visible="true"] {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .signal-card div {
@@ -733,28 +736,6 @@ const skills = [
     color: #f5fbf2;
   }
 
-  @keyframes fade-rise {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes card-enter {
-    from {
-      opacity: 0;
-      transform: translateY(18px) scale(0.985);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
   @media (max-width: 900px) {
     .hero,
     .section,
@@ -883,14 +864,8 @@ const skills = [
     *,
     *::before,
     *::after {
-      animation: none !important;
       scroll-behavior: auto !important;
       transition: none !important;
-    }
-
-    .js [data-reveal] {
-      opacity: 1;
-      transform: none;
     }
   }
 </style>
