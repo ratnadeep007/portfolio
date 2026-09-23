@@ -57,7 +57,7 @@ Wrangler is pinned as a development dependency so CI does not install or configu
 
 ```text
 public/
-  Ratnadeep Bhattacharyya.pdf  Public resume download
+  Ratnadeep Bhattacharyya Resume.pdf  Public resume download
 src/
   pages/
     index.astro                Portfolio content, layout, styles, and motion
@@ -68,14 +68,14 @@ wrangler.jsonc                 Cloudflare static asset deployment
 
 ## Updating the resume
 
-Replace both resume files so the source and public download remain synchronized:
+Keep the public resume file synchronized with the source file:
 
 ```text
-Ratnadeep Bhattacharyya.pdf
-public/Ratnadeep Bhattacharyya.pdf
+Ratnadeep Bhattacharyya Resume.pdf
+public/Ratnadeep Bhattacharyya Resume.pdf
 ```
 
-The portfolio links to `/Ratnadeep%20Bhattacharyya.pdf`. Run `pnpm build` after replacing the public file so the updated resume is copied into `dist/`.
+The portfolio links to `/Ratnadeep%20Bhattacharyya%20Resume.pdf`. Run `pnpm build` after replacing the public file so the updated resume is copied into `dist/`.
 
 ## Validation
 
