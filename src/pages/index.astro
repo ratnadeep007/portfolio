@@ -1,6 +1,7 @@
 ---
 import ThemeIcon from "../components/ThemeIcon.astro";
 import ProjectVisual from "../components/ProjectVisual.astro";
+import PortfolioTerminal from "../components/PortfolioTerminal.astro";
 
 const experience = [
   {
@@ -234,6 +235,7 @@ const jsonLd = {
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
             <a href="/Ratnadeep%20Bhattacharyya%20Resume.pdf" target="_blank">Resume</a>
+            <PortfolioTerminal experience={experience} projects={projects} capabilityGroups={capabilityGroups} />
           </div>
           <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme: System. Switch to light theme" title="Theme: System. Switch to light theme" disabled>
             <ThemeIcon preference="system" />
