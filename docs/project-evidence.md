@@ -1,0 +1,9 @@
+# Project showcase evidence
+
+The project stories and visuals are based on public project documentation reviewed on 2026-10-04. Problem statements summarize the use case; results describe documented capabilities unless a published customer use case is identified. Diagrams are authored explanations, not screenshots. Terminal commands are examples from documentation, not captured execution output.
+
+- **Agent Orchestration Platform:** [README](https://github.com/ratnadeep007/agent-orchestration-platform). Architecture and current implementation describe Next.js, FastAPI, Redis queues, Python workers, PostgreSQL, OpenClaw, per-node state, tool calls, token usage, and estimated costs. No production throughput or successful-run measurements are claimed.
+- **NL-to-SQL:** [README](https://github.com/ratnadeep007/nl-to-sql). “revenue by region” is a documented input. Destructive requests such as “drop orders table” are refused. Validation enforces read-only SELECT statements, known tables/columns, and row limits. The visual illustrates these rules without inventing query results.
+- **Vidura:** [product site](https://vidurabot.com/). Describes organizational documents, connected APIs, document indexing, and contextual answers. Its EAM360 testimonial supports the maintenance-manual use case for field technicians. The visual explains document grounding; it is not a capture of Vidura's interface.
+- **SkyCUA:** [README](https://github.com/ratnadeep007/skycua). Describes a React UI, FastAPI backend, Ubuntu Docker desktop with noVNC, SSH actions, screenshot feedback, and mouse/keyboard controls. The visual represents this documented control loop.
+- **GoClaw:** [README](https://github.com/ratnadeep007/goclaw). Documents terminal UI and HTTP entrypoints, provider switching, file-based memory, sandboxed code execution, and the displayed commands. No terminal output or execution success has been fabricated.

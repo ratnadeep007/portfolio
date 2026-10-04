@@ -1,0 +1,105 @@
+---
+interface Props { kind: string }
+const { kind } = Astro.props;
+---
+
+<figure class={`project-visual visual-${kind}`}>
+  {kind === "orchestration" && <>
+    <svg class="architecture-wide" viewBox="0 0 480 190" role="img" aria-label="Next.js connects to FastAPI, which queues work through Redis to a Python worker. The API and worker connect to PostgreSQL and OpenClaw.">
+      <g class="wires"><path d="M112 52H150M254 52H290M360 74V110M290 132H254M202 74V110M150 52H130V92H60V110M360 154V166H60V154" /></g>
+      <g class="nodes"><rect x="8" y="30" width="104" height="44"/><rect x="150" y="30" width="104" height="44"/><rect x="290" y="30" width="140" height="44"/><rect x="290" y="110" width="140" height="44"/><rect x="150" y="110" width="104" height="44"/><rect x="8" y="110" width="104" height="44"/></g>
+      <g class="labels"><text x="60" y="57">Next.js UI</text><text x="202" y="57">FastAPI</text><text x="360" y="57">Redis queue</text><text x="360" y="137">Python worker</text><text x="202" y="137">OpenClaw</text><text x="60" y="137">PostgreSQL</text></g>
+      <text class="annotation" x="290" y="186">execution + runtime events</text>
+    </svg>
+    <div class="architecture-compact">
+      <div><span>Next.js UI</span><svg viewBox="0 0 24 12" aria-hidden="true"><path d="M1 6H22M16 1l6 5-6 5"/></svg><span>FastAPI</span></div>
+      <p>API queues work</p>
+      <div><span>Redis</span><svg viewBox="0 0 24 12" aria-hidden="true"><path d="M1 6H22M16 1l6 5-6 5"/></svg><span>Python worker</span></div>
+      <p>Shared storage &amp; execution</p>
+      <div class="shared-services"><span>PostgreSQL</span><span>OpenClaw</span></div>
+    </div>
+    <figcaption>Runtime architecture · from the README</figcaption>
+  </>}
+  {kind === "sql" && <>
+    <div class="query-example">
+      <div class="question">“revenue by region”</div>
+      <div class="query-route"><span>Live schema</span><svg viewBox="0 0 40 12" aria-hidden="true"><path d="M0 6H38M32 1l6 5-6 5"/></svg><strong>Validated SQL</strong></div>
+      <div class="query-rules"><span>SELECT only</span><span>Known columns</span><span>Row limit</span></div>
+      <div class="query-refusal"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="m4 4 8 8"/></svg><span>“drop orders table” → refused</span></div>
+    </div>
+    <figcaption>Documented question &amp; guardrails</figcaption>
+  </>}
+  {kind === "retrieval" && <>
+    <div class="retrieval-scene">
+      <div class="knowledge-sources"><div class="document-sheet"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M8 2h23l9 9v43H8ZM31 2v10h9M15 24h18M15 31h18M15 38h12"/></svg><span>Documents</span></div><div class="api-source"><code>API</code><span>Connected data</span></div></div>
+      <svg class="retrieval-arrow" viewBox="0 0 32 12" aria-hidden="true"><path d="M0 6H30M24 1l6 5-6 5"/></svg>
+      <div class="grounded-answer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4ZM8 8h8M8 12h5"/></svg><strong>Contextual answer</strong><span>Retrieved knowledge</span><span>Organization context</span></div>
+    </div>
+    <figcaption>Document grounding · product architecture</figcaption>
+  </>}
+  {kind === "desktop" && <>
+    <div class="desktop-loop">
+      <div class="desktop-machine"><svg viewBox="0 0 110 80" aria-hidden="true"><rect x="4" y="4" width="102" height="60" rx="3"/><path d="M40 76h30M55 64v12M15 15h80M25 29l0 20 5-5 5 10 5-3-5-9 8-1Z"/></svg><strong>Docker desktop</strong><span>Ubuntu · noVNC</span></div>
+      <div class="loop-actions"><div><span>SSH</span><strong>Mouse + keyboard</strong><svg viewBox="0 0 80 12" aria-hidden="true"><path d="M78 6H2M8 1 2 6l6 5"/></svg></div><div><svg viewBox="0 0 80 12" aria-hidden="true"><path d="M2 6H78M72 1l6 5-6 5"/></svg><strong>Screenshot</strong><span>Model feedback</span></div></div>
+    </div>
+    <figcaption>Computer-use control loop · from the README</figcaption>
+  </>}
+  {kind === "terminal" && <>
+    <div class="terminal-example"><div class="terminal-title"><span>goclaw</span><span>CLI / HTTP</span></div><pre><code><span class="prompt">$</span> go run ./cmd/goclaw
+
+<span class="command">/provider</span>
+<span class="command">/memory brief</span>
+<span class="command">/sandbox list</span></code></pre><div class="http-entry"><span class="prompt">$</span> <code>go run ./cmd/goclaw --http</code></div></div>
+    <figcaption>Documented commands · terminal &amp; service</figcaption>
+  </>}
+</figure>
+
+<style>
+  .project-visual { margin: 0; min-width: 0; min-height: 280px; padding: 28px; display: flex; flex-direction: column; justify-content: center; gap: 18px; background: var(--diagram-surface); border-bottom: 1px solid var(--line); color: var(--supporting-ink); }
+  figcaption { color: var(--muted); font-size: var(--type-technical); line-height: 1.5; }
+  svg { display: block; width: 100%; fill: none; stroke: var(--diagram-line); stroke-width: 1.5; }
+  .wires { stroke: var(--accent); }
+  .nodes rect { fill: var(--panel); rx: 4px; }
+  .labels { fill: var(--strong-ink); stroke: none; font-size: 13px; font-family: var(--mono); text-anchor: middle; }
+  .annotation { fill: var(--muted); stroke: none; font-size: 11px; font-family: var(--mono); }
+  .architecture-compact { display: none; }
+  .architecture-compact > div { display: grid; grid-template-columns: 1fr 24px 1fr; gap: 8px; align-items: center; }
+  .architecture-compact span { padding: 10px 4px; border: 1px solid var(--diagram-line); border-radius: 4px; text-align: center; font-family: var(--mono); font-size: var(--type-technical); background: var(--panel); }
+  .architecture-compact svg { stroke: var(--accent); }
+  .architecture-compact p { margin: 8px 0; font-size: var(--type-technical); color: var(--muted); }
+  .architecture-compact .shared-services { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .query-example { display: grid; gap: 18px; }
+  .question { color: var(--ink); font-size: var(--type-subtitle); font-weight: 500; }
+  .query-route { display: flex; align-items: center; gap: 12px; font-size: var(--type-caption); }
+  .query-route svg { width: 40px; stroke: var(--accent); }
+  .query-route strong { color: var(--accent); font-weight: 600; }
+  .query-rules { display: flex; flex-wrap: wrap; gap: 8px 16px; font-family: var(--mono); font-size: var(--type-technical); }
+  .query-refusal { display: flex; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: var(--type-technical); }
+  .query-refusal svg { flex-shrink: 0; width: 16px; height: 16px; stroke: var(--supporting-ink); }
+  .visual-retrieval { border-bottom: 0; border-right: 1px solid var(--line); }
+  .retrieval-scene { display: grid; grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr); align-items: center; gap: 0; padding-block: 24px; }
+  .knowledge-sources { display: grid; gap: 24px; padding: 18px 12px; border: 1px solid var(--diagram-line); border-radius: 8px; }
+  .document-sheet, .api-source { display: flex; align-items: center; gap: 12px; font-size: var(--type-caption); }
+  .document-sheet svg { width: 42px; flex-shrink: 0; stroke: var(--supporting-ink); }
+  .api-source code { min-width: 42px; padding-block: 8px; border-block: 1px solid var(--diagram-line); font-family: var(--mono); text-align: center; }
+  .retrieval-arrow { stroke: var(--accent); }
+  .grounded-answer { display: grid; gap: 12px; padding-left: 8px; font-size: var(--type-caption); }
+  .grounded-answer svg { width: 36px; stroke: var(--accent); }
+  .grounded-answer strong { color: var(--strong-ink); line-height: 1.4; }
+  .grounded-answer span { font-size: var(--type-technical); }
+  .desktop-loop { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+  .desktop-machine { display: grid; gap: 8px; font-size: var(--type-caption); }
+  .desktop-machine svg { max-width: 150px; stroke: var(--supporting-ink); margin-bottom: 8px; }
+  .desktop-machine span, .loop-actions span { font-size: var(--type-technical); color: var(--muted); }
+  .loop-actions { display: grid; gap: 20px; }
+  .loop-actions > div { display: grid; gap: 6px; font-size: var(--type-caption); }
+  .loop-actions svg { width: 80px; stroke: var(--accent); }
+  .terminal-example { font-family: var(--mono); font-size: var(--type-technical); line-height: 1.65; }
+  .terminal-title { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--diagram-line); }
+  pre { margin: 16px 0; white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; color: var(--strong-ink); }
+  code { font: inherit; }
+  .prompt, .command { color: var(--accent); }
+  .http-entry { border-top: 1px solid var(--diagram-line); padding-top: 12px; overflow-wrap: anywhere; }
+  @media (max-width: 980px) { .visual-retrieval { border-right: 0; border-bottom: 1px solid var(--line); } .architecture-wide { display: none; } .architecture-compact { display: block; } }
+  @media (max-width: 700px) { .project-visual { padding: 24px 20px; min-height: 260px; } .retrieval-scene { grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); } .knowledge-sources { padding: 14px 8px; } .document-sheet, .api-source { flex-direction: column; align-items: flex-start; gap: 8px; } .desktop-loop { gap: 16px; } }
+</style>

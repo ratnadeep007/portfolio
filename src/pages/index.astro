@@ -1,4 +1,7 @@
 ---
+import ThemeIcon from "../components/ThemeIcon.astro";
+import ProjectVisual from "../components/ProjectVisual.astro";
+
 const experience = [
   {
     company: "Springboard",
@@ -64,51 +67,51 @@ const projects = [
     name: "Agent Orchestration Platform",
     type: "Full-stack agent runtime",
     href: "https://github.com/ratnadeep007/agent-orchestration-platform",
-    image: null,
-    visualWords: ["configure", "orchestrate", "execute", "observe"],
+    visual: "orchestration",
     stack: "Next.js / FastAPI / PostgreSQL / Redis",
-    copy:
-      "Configurable agents, visual workflow templates, tool execution, runtime event mirroring, message history, and token-cost tracking."
+    problem: "Agent workflows span execution, storage, and message delivery.",
+    approach: "Connect a visual workflow app to OpenClaw through queued workers.",
+    result: "Inspect node state, tool calls, token usage, and estimated cost."
   },
   {
     name: "NL-to-SQL",
     type: "Guardrailed analytics agent",
     href: "https://github.com/ratnadeep007/nl-to-sql",
-    image: null,
-    visualWords: ["question", "generate", "validate", "query"],
+    visual: "sql",
     stack: "Python / OpenAI / sqlglot / Streamlit",
-    copy:
-      "Schema-aware SQL generation with intent classification, parsing, validation, caching, repair attempts, and automated tests."
+    problem: "Natural-language questions can produce unsafe or invalid SQL.",
+    approach: "Ground generation in the live schema and validate before execution.",
+    result: "Read-only queries with refusal paths, row limits, and result previews."
   },
   {
     name: "Vidura",
     type: "Self-hosted agentic RAG",
     href: "https://vidurabot.com/",
-    image: null,
-    visualWords: ["query", "retrieve", "reason", "answer"],
+    visual: "retrieval",
     stack: "FastAPI / Qdrant / LangChain / LlamaIndex",
-    copy:
-      "Production retrieval, memory, document grounding, and tool execution for contextual enterprise AI responses."
+    problem: "Enterprise answers are buried in documents and connected systems.",
+    approach: "Index organizational knowledge and retrieve context for each question.",
+    result: "EAM360 field technicians get contextual answers from maintenance manuals."
   },
   {
     name: "SkyCUA",
     type: "Computer-use agent",
     href: "https://github.com/ratnadeep007/skycua",
-    image: null,
-    visualWords: ["observe", "decide", "execute", "verify"],
+    visual: "desktop",
     stack: "Agents / Docker / Local automation",
-    copy:
-      "Controlled computer-use workflows that execute system tasks through containerized environments and explicit tool orchestration."
+    problem: "Desktop automation needs actions and visual feedback in the same loop.",
+    approach: "Control a Docker desktop over SSH and return screenshots to the model.",
+    result: "Local mouse, keyboard, and screenshot tools behind a web interface."
   },
   {
     name: "GoClaw",
     type: "Agent CLI and HTTP service",
     href: "https://github.com/ratnadeep007/goclaw",
-    image: null,
-    visualWords: ["prompt", "plan", "tool", "memory"],
+    visual: "terminal",
     stack: "Go / LLM tools / Persistent memory",
-    copy:
-      "A compact agent runtime for tool execution, multi-step reasoning, persistent memory, and external integrations."
+    problem: "Tool-driven tasks need context that survives across sessions.",
+    approach: "Combine sandboxed code, model routing, and file-based memory in Go.",
+    result: "Run the agent through a terminal UI or an HTTP service."
   }
 ];
 
@@ -170,7 +173,51 @@ const jsonLd = {
     <title>Ratnadeep Bhattacharyya | Full-stack AI Engineer</title>
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <script is:inline>
-      document.documentElement.classList.add("js");
+      (() => {
+        const key = "portfolio-theme";
+        const system = window.matchMedia("(prefers-color-scheme: dark)");
+        const validPreference = (value) => value === "light" || value === "dark" ? value : "system";
+        let preference = "system";
+        try { preference = validPreference(localStorage.getItem(key)); } catch {}
+
+        const applyTheme = () => {
+          const theme = preference === "system" ? (system.matches ? "dark" : "light") : preference;
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.dataset.themePreference = preference;
+          document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#0b0d0c" : "#e7e7df";
+          const control = document.getElementById("theme-toggle");
+          const next = preference === "system" ? "light" : preference === "light" ? "dark" : "system";
+          const currentLabel = preference === "system" ? `System (${theme})` : preference;
+          if (control) {
+            control.setAttribute("aria-label", `Theme: ${currentLabel}. Switch to ${next} theme`);
+            control.title = `Theme: ${currentLabel}. Switch to ${next} theme`;
+          }
+          const status = document.getElementById("theme-status");
+          if (status) status.textContent = `Theme: ${currentLabel}`;
+        };
+
+        applyTheme();
+        system.addEventListener("change", applyTheme);
+        window.addEventListener("storage", (event) => {
+          if (event.key === key || event.key === null) {
+            preference = validPreference(event.newValue);
+            applyTheme();
+          }
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+          const control = document.getElementById("theme-toggle");
+          control.disabled = false;
+          applyTheme();
+          control.addEventListener("click", () => {
+            preference = preference === "system" ? "light" : preference === "light" ? "dark" : "system";
+            try {
+              if (preference === "system") localStorage.removeItem(key);
+              else localStorage.setItem(key, preference);
+            } catch {}
+            applyTheme();
+          });
+        });
+      })();
     </script>
   </head>
   <body>
@@ -188,12 +235,18 @@ const jsonLd = {
             <a href="#contact">Contact</a>
             <a href="/Ratnadeep%20Bhattacharyya%20Resume.pdf" target="_blank">Resume</a>
           </div>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme: System. Switch to light theme" title="Theme: System. Switch to light theme" disabled>
+            <ThemeIcon preference="system" />
+            <ThemeIcon preference="light" />
+            <ThemeIcon preference="dark" />
+          </button>
+          <span class="visually-hidden" id="theme-status" role="status"></span>
         </nav>
 
         <div class="hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Full-stack AI engineer</p>
             <h1 id="intro-title">AI systems, <em>end to end.</em></h1>
+            <p class="section-label">Full-stack AI engineer</p>
             <p class="lede">
               I design agent workflows, product interfaces, distributed services, and cloud infrastructure that survive production.
             </p>
@@ -234,19 +287,19 @@ const jsonLd = {
         </div>
       </section>
 
-      <section class="proof-rail" aria-label="Career impact" data-reveal>
-        <div><strong>7+</strong><span>years shipping production systems</span></div>
+      <section class="proof-rail" aria-label="Career impact">
+        <div><strong>8</strong><span>years shipping production systems</span></div>
         <div><strong>6d to 2h</strong><span>AI grading turnaround</span></div>
         <div><strong>93%</strong><span>grading accuracy across 5,000 students</span></div>
         <div><strong>1M+</strong><span>daily API requests supported</span></div>
       </section>
 
       <section class="section thesis" aria-labelledby="thesis-title">
-        <div class="thesis-title" data-reveal>
-          <p class="eyebrow">How I work</p>
+        <div class="thesis-title">
           <h2 id="thesis-title">The model is one part of the product.</h2>
+          <p class="section-label">How I work</p>
         </div>
-        <div class="thesis-copy" data-reveal>
+        <div class="thesis-copy">
           <p class="large-copy">
             Useful AI needs product judgment, grounded retrieval, evaluation, resilient workflows, and infrastructure that can be operated after launch.
           </p>
@@ -257,9 +310,9 @@ const jsonLd = {
       </section>
 
       <section class="section projects" id="projects" aria-labelledby="projects-title">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow">Selected builds</p>
+        <div class="section-heading">
           <h2 id="projects-title">Working software, not AI demos.</h2>
+          <p class="section-label">Selected builds</p>
           <p>Independent projects exploring agent runtimes, retrieval, guardrails, and human-facing control surfaces.</p>
         </div>
 
@@ -270,23 +323,18 @@ const jsonLd = {
               href={project.href}
               target="_blank"
               rel="noreferrer"
-              data-reveal
-              aria-label={`Open ${project.name}`}
+              aria-labelledby={`project-title-${index}`}
             >
-              <div class:list={["project-visual", { "visual-fallback": !project.image }]}>
-                {project.image ? (
-                  <img src={project.image} alt={`${project.name} repository preview`} loading="lazy" />
-                ) : (
-                  <div class="retrieval-map" aria-hidden="true">
-                    {project.visualWords?.map((word) => <span>{word}</span>)}
-                  </div>
-                )}
-              </div>
+              <ProjectVisual kind={project.visual} />
               <div class="project-body">
                 <div class="project-meta"><span>{project.type}</span><span>{project.stack}</span></div>
-                <h3>{project.name}</h3>
-                <p>{project.copy}</p>
-                <span class="project-link">View project</span>
+                <h3 id={`project-title-${index}`}>{project.name}</h3>
+                <dl class="project-story">
+                  <div><dt>Problem</dt><dd>{project.problem}</dd></div>
+                  <div><dt>Approach</dt><dd>{project.approach}</dd></div>
+                  <div><dt>Result</dt><dd>{project.result}</dd></div>
+                </dl>
+                <span class="project-link">View project <span class="sr-only">(opens in a new tab)</span></span>
               </div>
             </a>
           ))}
@@ -294,15 +342,14 @@ const jsonLd = {
       </section>
 
       <section class="section experience" id="work" aria-labelledby="experience-title">
-        <div class="experience-intro" data-reveal>
-          <p class="eyebrow">Experience</p>
+        <div class="experience-intro">
           <h2 id="experience-title">Systems ownership at every layer.</h2>
+          <p class="section-label">Experience</p>
           <p>Remote product engineering across education, enterprise AI, payments, analytics, healthcare, and consumer platforms.</p>
         </div>
         <div class="timeline">
           {experience.map((item) => (
-            <article class="job" data-reveal>
-              <div class="job-index" aria-hidden="true"></div>
+            <article class="job">
               <div class="job-meta">
                 <span>{item.period}</span>
                 <strong>{item.company}</strong>
@@ -319,13 +366,13 @@ const jsonLd = {
       </section>
 
       <section class="section capabilities" aria-labelledby="capabilities-title">
-        <div class="section-heading compact" data-reveal>
-          <p class="eyebrow">Technical range</p>
+        <div class="section-heading compact">
           <h2 id="capabilities-title">One engineer across the product boundary.</h2>
+          <p class="section-label">Technical range</p>
         </div>
         <div class="capability-grid">
           {capabilityGroups.map((group) => (
-            <article data-reveal>
+            <article>
               <h3>{group.label}</h3>
               <ul>
                 {group.items.map((item) => <li>{item}</li>)}
@@ -335,10 +382,10 @@ const jsonLd = {
         </div>
       </section>
 
-      <section class="contact" id="contact" aria-labelledby="contact-title" data-reveal>
+      <section class="contact" id="contact" aria-labelledby="contact-title">
         <div>
-          <p class="eyebrow">Build the difficult part</p>
           <h2 id="contact-title">Need AI that works beyond the prototype?</h2>
+          <p class="section-label">Build the difficult part</p>
         </div>
         <div class="contact-copy">
           <p>
@@ -359,87 +406,73 @@ const jsonLd = {
       </footer>
     </main>
 
-    <script>
-      import gsap from "gsap";
-      import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-      gsap.registerPlugin(ScrollTrigger);
-
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const heroItems = [
-        ".brand-lockup",
-        ".navlinks",
-        ".hero-copy .eyebrow",
-        "#intro-title",
-        ".lede",
-        ".actions",
-        ".system-window"
-      ];
-      const revealItems = gsap.utils.toArray<HTMLElement>("[data-reveal]");
-
-      if (reduceMotion) {
-        gsap.set([...heroItems, ...revealItems], { clearProps: "all", opacity: 1, y: 0 });
-      } else {
-        gsap.set(heroItems, { opacity: 0, y: 20 });
-        gsap.set(".system-window", { opacity: 0, y: 24, rotate: 1.2 });
-        gsap.set(revealItems, { opacity: 0, y: 22 });
-
-        gsap
-          .timeline({ defaults: { ease: "power3.out", duration: 0.72 } })
-          .to(".brand-lockup", { opacity: 1, y: 0 }, 0)
-          .to(".navlinks", { opacity: 1, y: 0 }, 0.05)
-          .to(".hero-copy .eyebrow", { opacity: 1, y: 0 }, 0.12)
-          .to("#intro-title", { opacity: 1, y: 0, duration: 0.92 }, 0.2)
-          .to(".lede", { opacity: 1, y: 0 }, 0.34)
-          .to(".actions", { opacity: 1, y: 0 }, 0.44)
-          .to(".system-window", { opacity: 1, y: 0, rotate: 0, duration: 0.86 }, 0.38);
-
-        revealItems.forEach((item) => {
-          gsap.to(item, {
-            opacity: 1,
-            y: 0,
-            duration: 0.62,
-            ease: "power2.out",
-            scrollTrigger: { trigger: item, start: "top 88%", once: true }
-          });
-        });
-      }
-    </script>
   </body>
 </html>
 
 <style is:global>
   :root {
-    color-scheme: dark;
-    --ink: #f0f5ef;
-    --muted: #9ca69f;
-    --canvas: #0b0d0c;
-    --panel: #111512;
-    --panel-raised: #171c18;
-    --line: #293029;
-    --accent: #b9ff66;
-    --accent-ink: #11180b;
+    color-scheme: light dark;
+    --ink: light-dark(#18251c, #f0f5ef);
+    --muted: light-dark(#526357, #9ca69f);
+    --canvas: light-dark(#e7e7df, #0b0d0c);
+    --panel: light-dark(#efefe7, #111512);
+    --panel-raised: light-dark(#dfe4d7, #171c18);
+    --line: light-dark(#bbc5b5, #293029);
+    --accent: light-dark(#35670d, #b9ff66);
+    --accent-ink: light-dark(#f4f5ed, #11180b);
+    --accent-hover: light-dark(#285109, #c7ff84);
+    --supporting-ink: light-dark(#425448, #c1c9c2);
+    --strong-ink: light-dark(#293b2d, #d8ded9);
+    --diagram-surface: light-dark(#dce3d4, #0f1210);
+    --diagram-line: light-dark(#a4b49d, #3d493f);
+    --hover-line: light-dark(#71856a, #4a584c);
+    --wash: light-dark(rgba(82, 124, 35, 0.05), rgba(185, 255, 102, 0.08));
+    --diagram-wash: light-dark(rgba(82, 124, 35, 0.10), rgba(185, 255, 102, 0.12));
+    --grid-line: light-dark(rgba(24, 37, 28, 0.035), rgba(255, 255, 255, 0.018));
+    --shadow: light-dark(rgba(35, 57, 25, 0.08), rgba(0, 0, 0, 0.35));
     --max: 1280px;
-    --radius: 18px;
+    --radius: 16px;
     --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     --sans: "SF Pro Display", "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --type-display: clamp(2.75rem, 2.125rem + 4.25vw, 6rem);
+    --type-section: clamp(2.5rem, 1.8rem + 3.2vw, 5.25rem);
+    --type-title: clamp(1.5rem, 1.2rem + 0.7vw, 2rem);
+    --type-subtitle: clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem);
+    --type-lead: clamp(1.125rem, 1rem + 0.25vw, 1.25rem);
+    --type-statement: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem);
+    --type-body: 1rem;
+    --type-caption: 0.875rem;
+    --type-technical: 0.8125rem;
+    --leading-body: 1.65;
+    --measure-prose: 62ch;
+    --section-space: clamp(3.5rem, 6vw, 6rem);
+    --group-space: clamp(2rem, 3vw, 3rem);
+    --column-gap: clamp(2rem, 5vw, 5rem);
     font-family: var(--sans);
   }
+
+  :root[data-theme="light"] { color-scheme: light; }
+  :root[data-theme="dark"] { color-scheme: dark; }
 
   * { box-sizing: border-box; }
 
   html {
     background: var(--canvas);
     scroll-behavior: smooth;
+    scroll-padding-top: 32px;
+    scrollbar-color: var(--hover-line) var(--canvas);
+    scrollbar-width: thin;
   }
 
   body {
     margin: 0;
+    font-size: var(--type-body);
+    line-height: var(--leading-body);
     color: var(--ink);
     background:
-      radial-gradient(circle at 76% 8%, rgba(185, 255, 102, 0.08), transparent 26rem),
-      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      radial-gradient(circle at 76% 8%, var(--wash), transparent 26rem),
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
       var(--canvas);
     background-size: auto, 56px 56px, 56px 56px, auto;
   }
@@ -454,10 +487,11 @@ const jsonLd = {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
   }
 
-  a { color: inherit; text-decoration: none; }
+  ::selection { color: var(--accent-ink); background: var(--accent); }
+  a { color: inherit; text-decoration: none; text-underline-offset: 0.25em; }
   p { text-wrap: pretty; }
   h1, h2, h3, p { margin-top: 0; }
-  main { overflow: hidden; }
+  main { overflow-x: clip; }
 
   .skip-link {
     position: fixed;
@@ -486,17 +520,18 @@ const jsonLd = {
   }
 
   .hero {
-    min-height: 100dvh;
-    padding: 24px 0 72px;
+    min-height: min(44rem, 82svh);
+    padding: 24px 0 var(--section-space);
     display: flex;
     flex-direction: column;
   }
 
   .topbar {
     min-height: 68px;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 28px;
     align-items: center;
-    justify-content: space-between;
   }
 
   .brand-lockup { display: inline-flex; align-items: center; gap: 13px; }
@@ -510,27 +545,41 @@ const jsonLd = {
     border-radius: 50%;
     color: var(--accent);
     font-family: var(--mono);
-    font-size: 0.8rem;
+    font-size: var(--type-technical);
     font-weight: 700;
-    letter-spacing: -0.06em;
+    letter-spacing: -0.03em;
   }
 
   .brand-name {
-    font-size: 0.88rem;
+    font-size: var(--type-caption);
     font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: -0.035em;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
   }
 
-  .navlinks { display: flex; align-items: center; gap: 28px; }
+  .navlinks { display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
+  .theme-toggle { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; transition: background 180ms ease, border-color 180ms ease, color 180ms ease; }
+  .theme-toggle:is(:hover, :focus-visible) { border-color: var(--hover-line); background: var(--panel-raised); color: var(--accent); }
+  .theme-toggle:active { background: var(--panel); }
+  .theme-toggle:disabled { cursor: default; opacity: 0.6; }
+  .theme-icon { width: 20px; height: 20px; display: none; }
+  :root:not([data-theme-preference]) .theme-icon-system,
+  :root[data-theme-preference="system"] .theme-icon-system,
+  :root[data-theme-preference="light"] .theme-icon-light,
+  :root[data-theme-preference="dark"] .theme-icon-dark { display: block; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
   .navlinks a,
   .text-link {
     position: relative;
-    padding-block: 8px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding-block: 10px;
     color: var(--muted);
-    font-size: 0.9rem;
-    font-weight: 650;
+    font-size: var(--type-caption);
+    font-weight: 600;
+    line-height: 1.4;
     transition: color 180ms ease;
   }
 
@@ -548,64 +597,66 @@ const jsonLd = {
     transition: transform 220ms ease;
   }
 
-  .navlinks a:hover,
-  .text-link:hover { color: var(--ink); }
-  .navlinks a:hover::after,
-  .text-link:hover::after { transform: scaleX(1); transform-origin: left; }
+  .navlinks a:is(:hover, :focus-visible),
+  .text-link:is(:hover, :focus-visible) { color: var(--ink); }
+  .navlinks a:is(:hover, :focus-visible)::after,
+  .text-link:is(:hover, :focus-visible)::after { transform: scaleX(1); transform-origin: left; }
 
   .hero-grid {
     flex: 1;
     display: grid;
     grid-template-columns: minmax(0, 1.18fr) minmax(340px, 0.72fr);
-    gap: clamp(48px, 8vw, 128px);
+    gap: var(--column-gap);
     align-items: center;
-    padding-top: 54px;
+    padding-top: var(--group-space);
   }
 
-  .eyebrow {
-    margin-bottom: 18px;
+  .section-label {
+    margin: 20px 0 24px;
     color: var(--accent);
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    font-size: var(--type-technical);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   h1 {
     max-width: 9.5ch;
     margin-bottom: 26px;
-    font-size: clamp(4.2rem, 8.4vw, 8.4rem);
-    font-weight: 620;
-    line-height: 0.88;
-    letter-spacing: -0.072em;
+    font-size: var(--type-display);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
 
-  h1 em { color: var(--accent); font-style: normal; font-weight: 620; }
+  h1 em { color: var(--accent); font-style: normal; font-weight: inherit; }
 
   h2 {
     margin-bottom: 0;
-    font-size: clamp(2.7rem, 5.5vw, 6rem);
-    font-weight: 570;
-    line-height: 0.92;
-    letter-spacing: -0.06em;
+    font-size: var(--type-section);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
   h3 {
     margin-bottom: 12px;
-    font-size: clamp(1.45rem, 2.4vw, 2.15rem);
-    line-height: 1;
-    letter-spacing: -0.045em;
+    font-size: var(--type-title);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   .lede {
-    max-width: 590px;
+    max-width: min(54ch, 590px);
     margin-bottom: 0;
-    color: #c1c9c2;
-    font-size: clamp(1.05rem, 1.65vw, 1.3rem);
-    line-height: 1.55;
+    color: var(--supporting-ink);
+    font-size: var(--type-lead);
+    line-height: 1.6;
   }
 
   .actions,
@@ -619,22 +670,22 @@ const jsonLd = {
     padding: 0 22px;
     border: 1px solid transparent;
     border-radius: 999px;
-    font-weight: 760;
+    font-size: var(--type-body);
+    font-weight: 700;
+    line-height: 1.4;
     white-space: nowrap;
     transition: transform 180ms ease, background 180ms ease;
   }
 
   .button.primary { color: var(--accent-ink); background: var(--accent); }
-  .button:hover { transform: translateY(-2px); background: #c7ff84; }
+  .button:hover { transform: translateY(-2px); background: var(--accent-hover); }
   .button:active { transform: translateY(1px); }
 
   .system-window {
-    border: 1px solid #343d35;
     border-radius: var(--radius);
     overflow: hidden;
-    background: rgba(17, 21, 18, 0.86);
-    box-shadow: 0 34px 90px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(14px);
+    background: var(--panel-raised);
+    box-shadow: 0 34px 90px var(--shadow);
   }
 
   .window-bar,
@@ -646,7 +697,8 @@ const jsonLd = {
     padding: 14px 18px;
     color: var(--muted);
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: var(--type-technical);
+    line-height: 1.5;
   }
 
   .window-bar { border-bottom: 1px solid var(--line); }
@@ -655,95 +707,102 @@ const jsonLd = {
   .system-window dl { margin: 0; padding: 12px 18px; }
   .system-window dl div { display: grid; grid-template-columns: 92px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
   .system-window dl div:last-child { border-bottom: 0; }
-  .system-window dt { color: #718077; font-family: var(--mono); font-size: 0.72rem; text-transform: lowercase; }
-  .system-window dd { margin: 0; color: #d8ded9; font-size: 0.9rem; line-height: 1.4; }
-  .status-line { justify-content: flex-start; border-top: 1px solid var(--line); color: #bdc7bf; }
-  .status-marker { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px rgba(185, 255, 102, 0.6); }
+  .system-window dt { color: var(--muted); font-family: var(--mono); font-size: var(--type-technical); text-transform: lowercase; }
+  .system-window dd { margin: 0; color: var(--strong-ink); font-size: var(--type-body); line-height: 1.5; }
+  .status-line { justify-content: flex-start; border-top: 1px solid var(--line); color: var(--supporting-ink); font-family: var(--sans); font-size: var(--type-caption); line-height: 1.6; }
+  .status-marker { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: var(--accent); }
 
   .proof-rail {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     border-block: 1px solid var(--line);
-    background: rgba(17, 21, 18, 0.72);
+    background: var(--panel);
   }
 
   .proof-rail div { min-height: 150px; display: grid; align-content: space-between; gap: 18px; padding: 28px clamp(24px, 4vw, 54px); border-right: 1px solid var(--line); }
   .proof-rail div:last-child { border-right: 0; }
-  .proof-rail strong { color: var(--accent); font-family: var(--mono); font-size: clamp(2rem, 3vw, 3.4rem); letter-spacing: -0.065em; }
-  .proof-rail span { max-width: 24ch; color: var(--muted); font-size: 0.88rem; line-height: 1.4; }
+  .proof-rail strong { color: var(--accent); font-family: var(--mono); font-size: clamp(1.5rem, 1rem + 1.8vw, 2.75rem); line-height: 1.1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .proof-rail span { max-width: 24ch; color: var(--muted); font-size: var(--type-caption); line-height: 1.5; }
 
-  .section { padding: 140px 0; }
+  .section { padding-block: var(--section-space); }
+  .section + .section { padding-top: 0; }
 
-  .thesis { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(54px, 9vw, 150px); }
-  .thesis-title h2 { max-width: 8.5ch; }
-  .thesis-copy { padding-top: 44px; }
-  .thesis-copy p { max-width: 58ch; color: var(--muted); font-size: 1.03rem; line-height: 1.75; }
-  .thesis-copy .large-copy { margin-bottom: 32px; color: var(--ink); font-size: clamp(1.35rem, 2.2vw, 2rem); line-height: 1.42; letter-spacing: -0.025em; }
+  .thesis { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: var(--column-gap); }
+  .thesis-title h2 { max-width: 12ch; }
+  .thesis-copy { padding-top: 8px; }
+  .thesis-copy p { max-width: var(--measure-prose); color: var(--muted); font-size: var(--type-body); line-height: var(--leading-body); }
+  .thesis-copy .large-copy { margin-bottom: 28px; color: var(--ink); font-size: var(--type-statement); line-height: 1.45; letter-spacing: -0.015em; }
 
-  .section-heading { max-width: 880px; margin-bottom: 64px; }
-  .section-heading h2 { max-width: 11ch; }
-  .section-heading > p:last-child,
-  .experience-intro > p:last-child { max-width: 58ch; margin: 28px 0 0; color: var(--muted); font-size: 1.03rem; line-height: 1.65; }
+  .section-heading { max-width: 880px; margin-bottom: var(--group-space); }
+  .section-heading h2 { max-width: 15ch; }
+  .section-heading > p:last-child:not(.section-label),
+  .experience-intro > p:last-child:not(.section-label) { max-width: var(--measure-prose); margin: 28px 0 0; color: var(--muted); font-size: var(--type-body); line-height: var(--leading-body); }
   .section-heading.compact h2 { max-width: 12ch; }
 
   .project-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
-  .project { grid-column: span 6; display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--panel); transition: transform 220ms ease, border-color 220ms ease; }
-  .project:hover { transform: translateY(-5px); border-color: #4a584c; }
-  .project:nth-child(3) { grid-column: span 12; grid-template-columns: 0.9fr 1.1fr; grid-template-rows: 1fr; }
+  .project { grid-column: span 6; grid-row: span 5; display: grid; grid-template-rows: subgrid; row-gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--panel); transition: transform 220ms ease, border-color 220ms ease; }
+  .project:is(:hover, :focus-visible) { transform: translateY(-3px); border-color: var(--hover-line); }
+  .project:nth-child(3) { grid-column: span 12; grid-row: span 1; grid-template-columns: 0.9fr 1.1fr; grid-template-rows: 1fr; }
   .project:nth-child(4),
   .project:nth-child(5) { grid-column: span 6; }
-  .project-visual { min-height: 250px; overflow: hidden; background: #0f1210; }
-  .project-visual img { width: 100%; height: 100%; min-height: 250px; display: block; object-fit: cover; filter: saturate(0.72) contrast(1.05); transition: transform 500ms cubic-bezier(.2,.7,.2,1), filter 220ms ease; }
-  .project:hover .project-visual img { transform: scale(1.025); filter: saturate(1) contrast(1); }
-  .project-body { display: flex; flex-direction: column; padding: 28px; }
-  .project-meta { display: flex; justify-content: space-between; gap: 18px; margin-bottom: 26px; color: var(--muted); font-family: var(--mono); font-size: 0.68rem; line-height: 1.5; }
+  .project-body { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; padding: 28px; }
+  .project:nth-child(3) .project-body { display: flex; flex-direction: column; grid-row: auto; }
+  .project-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-bottom: 24px; color: var(--muted); font-size: var(--type-caption); line-height: 1.5; }
   .project-meta span:last-child { text-align: right; }
   .project h3 { max-width: 15ch; }
-  .project p { max-width: 58ch; margin-bottom: 30px; color: var(--muted); line-height: 1.65; }
-  .project-link { margin-top: auto; color: var(--accent); font-family: var(--mono); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .project p { max-width: var(--measure-prose); margin-bottom: 28px; color: var(--muted); font-size: var(--type-body); line-height: var(--leading-body); }
+  .project-link { margin-top: auto; align-self: end; color: var(--accent); font-size: var(--type-caption); font-weight: 600; line-height: 1.5; }
+  .project:nth-child(3) .project-link { align-self: flex-start; }
 
-  .visual-fallback { display: grid; place-items: center; min-height: 100%; padding-top: 28px; background: radial-gradient(circle at center, rgba(185, 255, 102, 0.12), transparent 46%), #0f1210; }
-  .retrieval-map { width: min(86%, 520px); display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; gap: 16px; }
-  .retrieval-map span { position: relative; padding: 14px 8px; border: 1px solid #3d493f; border-radius: 8px; color: #b9c3bb; font-family: var(--mono); font-size: 0.68rem; text-align: center; }
-  .retrieval-map span:not(:last-child)::after { position: absolute; top: 50%; left: calc(100% + 1px); width: 16px; height: 1px; content: ""; background: var(--accent); }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  .project-story { display: grid; gap: 14px; margin: 8px 0 28px; }
+  .project-story > div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 12px; }
+  .project-story dt { color: var(--strong-ink); font-size: var(--type-caption); font-weight: 600; line-height: var(--leading-body); padding-top: 2px; }
+  .project-story dd { margin: 0; color: var(--muted); font-size: var(--type-body); line-height: var(--leading-body); }
 
-  .experience { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: clamp(52px, 8vw, 126px); align-items: start; }
+  .experience { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: var(--column-gap); align-items: start; }
   .experience-intro { position: sticky; top: 40px; }
-  .experience-intro h2 { max-width: 9ch; }
-  .timeline { counter-reset: jobs; border-top: 1px solid var(--line); }
-  .job { counter-increment: jobs; position: relative; display: grid; grid-template-columns: 32px 0.72fr 1.28fr; gap: 24px; padding: 34px 0; border-bottom: 1px solid var(--line); }
-  .job-index::before { content: counter(jobs, decimal-leading-zero); color: var(--accent); font-family: var(--mono); font-size: 0.68rem; }
+  .experience-intro h2 { max-width: 12ch; }
+  .timeline { border-top: 1px solid var(--line); }
+  .job { position: relative; display: grid; grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr); gap: 24px; padding: 34px 0; border-bottom: 1px solid var(--line); }
   .job-meta { display: grid; align-content: start; gap: 8px; }
   .job-meta span,
-  .job-meta small { color: var(--muted); font-size: 0.78rem; line-height: 1.4; }
-  .job-meta strong { font-size: 0.95rem; }
+  .job-meta small { color: var(--muted); font-size: var(--type-caption); line-height: 1.5; }
+  .job-meta span { font-variant-numeric: tabular-nums; }
+  .job-meta strong { font-size: var(--type-body); line-height: 1.4; }
   .job-meta small { max-width: 20ch; }
-  .job-copy h3 { font-size: clamp(1.25rem, 1.8vw, 1.75rem); }
-  .job-copy p { color: var(--muted); line-height: 1.65; }
-  .job-copy .proof { margin-bottom: 0; color: #d6ddd7; font-weight: 650; }
+  .job-copy h3 { font-size: var(--type-subtitle); }
+  .job-copy p { max-width: var(--measure-prose); color: var(--muted); font-size: var(--type-body); line-height: var(--leading-body); }
+  .job-copy .proof { margin-bottom: 0; color: var(--strong-ink); font-weight: 600; }
 
   .capability-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); }
   .capability-grid article { min-height: 310px; padding: 28px; background: var(--panel); }
-  .capability-grid h3 { margin-bottom: 42px; font-size: 1.3rem; }
+  .capability-grid h3 { margin-bottom: 28px; font-size: var(--type-subtitle); }
   .capability-grid ul { margin: 0; padding: 0; list-style: none; }
-  .capability-grid li { padding: 7px 0; color: var(--muted); font-family: var(--mono); font-size: 0.76rem; }
+  .capability-grid li { padding: 7px 0; color: var(--muted); font-size: var(--type-body); line-height: 1.5; }
 
-  .contact { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(42px, 8vw, 120px); margin-top: 38px; padding: clamp(48px, 8vw, 94px); border: 1px solid #364038; border-radius: var(--radius); background: linear-gradient(135deg, rgba(185, 255, 102, 0.08), transparent 48%), var(--panel-raised); }
-  .contact h2 { max-width: 10ch; }
+  .contact { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--column-gap); padding: clamp(2rem, 5vw, 4rem); border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(135deg, var(--wash), transparent 48%), var(--panel-raised); }
+  .contact h2 { max-width: 12ch; }
   .contact-copy { align-self: end; }
-  .contact-copy > p { max-width: 48ch; color: #b4beb6; font-size: 1.05rem; line-height: 1.65; }
+  .contact-copy > p { max-width: 48ch; color: var(--supporting-ink); font-size: var(--type-body); line-height: var(--leading-body); }
 
-  footer { min-height: 130px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: #707a72; font-family: var(--mono); font-size: 0.7rem; }
+  footer { min-height: 130px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--muted); font-size: var(--type-caption); line-height: 1.5; }
+  footer a { min-height: 44px; display: inline-flex; align-items: center; }
   footer a:hover { color: var(--accent); }
 
   @media (max-width: 980px) {
+    .topbar { grid-template-columns: 1fr auto; gap: 20px; }
+    .navlinks { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; flex-wrap: wrap; gap: 12px 18px; }
     .hero-grid,
     .thesis,
     .experience,
     .contact { grid-template-columns: 1fr; }
 
-    .hero-grid { align-content: center; gap: 64px; }
+    .hero-grid { align-content: center; gap: var(--group-space); }
+    .thesis,
+    .experience,
+    .contact { gap: var(--group-space); }
     .system-window { max-width: 640px; }
     .proof-rail { grid-template-columns: repeat(2, 1fr); }
     .proof-rail div:nth-child(2) { border-right: 0; }
@@ -761,31 +820,48 @@ const jsonLd = {
     footer { width: min(100% - 32px, var(--max)); }
 
     .hero { min-height: auto; padding-top: 12px; }
-    .topbar { align-items: flex-start; }
-    .brand-name { display: none; }
-    .navlinks { gap: 16px; overflow-x: auto; padding-bottom: 8px; }
-    .navlinks a { flex: 0 0 auto; font-size: 0.78rem; }
-    .hero-grid { padding-top: 52px; }
-    h1 { max-width: 10ch; font-size: clamp(3.5rem, 18vw, 5.8rem); line-height: 0.9; }
-    h2 { font-size: clamp(2.7rem, 13vw, 4.4rem); }
-    .section { padding: 96px 0; }
-    .proof-rail { grid-template-columns: 1fr; }
-    .proof-rail div { min-height: 124px; border-right: 0; border-bottom: 1px solid var(--line); }
-    .proof-rail div:last-child { border-bottom: 0; }
+    .topbar { grid-template-columns: 1fr auto; gap: 16px; }
+    .navlinks { grid-column: 1 / -1; grid-row: 2; width: 100%; justify-content: space-between; gap: 12px; }
+    .navlinks a { flex: 0 0 auto; }
+    h1 { max-width: 10ch; }
+    .proof-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .proof-rail div { min-height: 144px; padding: 24px 16px; gap: 12px; }
+    .proof-rail strong { white-space: nowrap; }
     .project,
     .project:nth-child(3),
     .project:nth-child(4),
     .project:nth-child(5) { grid-column: span 12; }
+    .project { grid-row: auto; grid-template-rows: auto 1fr; }
+    .project-body { display: flex; flex-direction: column; grid-row: auto; }
+    .project-story > div { grid-template-columns: 1fr; gap: 2px; }
     .project-meta { flex-direction: column; margin-bottom: 24px; }
     .project-meta span:last-child { text-align: left; }
-    .job { grid-template-columns: 26px 1fr; }
-    .job-copy { grid-column: 2; }
-    .capability-grid { grid-template-columns: 1fr; }
-    .capability-grid article { min-height: auto; }
+    .job { grid-template-columns: 1fr; gap: 20px; }
+    .job-meta small { max-width: none; }
+    .capability-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
+    .capability-grid article { min-height: auto; padding: 24px 16px; }
+    .capability-grid h3 { margin-bottom: 24px; }
     .contact { padding: 34px 26px; }
     .actions,
     .contact-links { align-items: flex-start; }
     footer { min-height: 180px; flex-direction: column; align-items: flex-start; justify-content: center; }
+  }
+
+  @media (max-width: 360px) {
+    .contact { padding: 28px 20px; }
+    .contact .button { width: 100%; padding-inline: 12px; }
+    .contact-links { gap: 12px 20px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-copy,
+    .system-window { animation: hero-arrive 850ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+    .system-window { animation-delay: 120ms; }
+
+    @keyframes hero-arrive {
+      from { transform: translateY(18px); }
+      to { transform: translateY(0); }
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
